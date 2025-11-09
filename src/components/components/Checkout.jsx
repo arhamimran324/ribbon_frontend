@@ -45,7 +45,7 @@ const Checkout = () => {
                         </p>
                         <p className="flex items-baseline font-semibold text-[20px] text-black">
                           <span className="text-sm max-md:text-[12px] mr-0.5">
-                            $
+                            £
                           </span>
                           <span className="text-lg max-md:text-[14px]">
                             {item.price}

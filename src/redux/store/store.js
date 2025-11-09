@@ -1,7 +1,8 @@
 import languageReducer, { languageSlice } from "./languageSlice";
-import authReducer from "../../redux/slices/auth-slice";
-import appReducer from "../../redux/slices/app-slice";
-import checkoutReducer from "../../redux/slices/checkout-slice";
+import authReducer from "../slices/auth-slice";
+import appReducer from "../slices/app-slice";
+import checkoutReducer from "../slices/checkout-slice";
+import buildBoxReducer from "../slices/built-box-slice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
   FLUSH,
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   app: appReducer,
   auth: authReducer,
   checkout: checkoutReducer,
+  buildBox: buildBoxReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

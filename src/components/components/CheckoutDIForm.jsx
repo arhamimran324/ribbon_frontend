@@ -1,4 +1,4 @@
-// components/CheckoutDIForm.jsx
+// components/CheckoutDIForm.jsx - Update the form schema and add shipping selector
 "use client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -15,14 +15,15 @@ import {
 import { Input } from "@/components/components/ui/input";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useEffect } from "react";
+import ShippingMethodSelector from "./ShippingMethodSelector";
 
-// Define schema
+// Update schema to include UK-specific fields
 const formSchema = z.object({
   firstName: z.string().min(1, "First name is required!"),
   lastName: z.string().min(1, "Last name is required!"),
   city: z.string().min(1, "City is required!"),
   address: z.string().min(1, "Address is required!"),
-  zipCode: z.string().min(1, "Zip Code is required!"),
+  postcode: z.string().min(1, "Postcode is required!"), // Changed from zipCode
   mobileNumber: z.string().min(1, "Mobile Number is required!"),
   emailAddress: z.string().email("Please enter a valid email address!"),
 });
@@ -38,7 +39,7 @@ const CheckoutDIForm = ({ onAddressSubmit }) => {
       lastName: deliveryInfo.lastName || "",
       city: deliveryInfo.city || "",
       address: deliveryInfo.address || "",
-      zipCode: deliveryInfo.zipCode || "",
+      postcode: deliveryInfo.postcode || "", // Changed from zipCode
       mobileNumber: deliveryInfo.phone || "",
       emailAddress: deliveryInfo.email || "",
     },
@@ -58,8 +59,9 @@ const CheckoutDIForm = ({ onAddressSubmit }) => {
           phone: values.mobileNumber || "",
           address: values.address || "",
           city: values.city || "",
-          zipCode: values.zipCode || "",
-          country: deliveryInfo.country || "United States",
+          postcode: values.postcode || "", // Changed from zipCode
+          country: "United Kingdom", // Set to UK
+          shippingMethod: deliveryInfo.shippingMethod || "", // Preserve shipping method
         };
 
         dispatch(setDeliveryInfo(deliveryData));
@@ -71,7 +73,7 @@ const CheckoutDIForm = ({ onAddressSubmit }) => {
     });
 
     return () => subscription.unsubscribe();
-  }, [form, dispatch, deliveryInfo.country, onAddressSubmit]);
+  }, [form, dispatch, deliveryInfo.shippingMethod, onAddressSubmit]);
 
   return (
     <Form {...form}>
@@ -140,7 +142,7 @@ const CheckoutDIForm = ({ onAddressSubmit }) => {
           )}
         />
 
-        {/* City & Zip Code */}
+        {/* City & Postcode */}
         <div className="flex max-md:flex-col justify-between">
           <FormField
             control={form.control}
@@ -153,7 +155,7 @@ const CheckoutDIForm = ({ onAddressSubmit }) => {
                 <FormControl>
                   <Input
                     className="w-[24.5vw] max-md:w-[82vw] h-[50px] border-[1px] border-[#D0D5DD] placeholder:text-[#98A2B3]"
-                    placeholder="Lahore"
+                    placeholder="London"
                     {...field}
                   />
                 </FormControl>
@@ -164,16 +166,16 @@ const CheckoutDIForm = ({ onAddressSubmit }) => {
 
           <FormField
             control={form.control}
-            name="zipCode"
+            name="postcode"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-[14px] max-md:mt-6 text-[#344054] font-semibold">
-                  Zip Code
+                  Postcode
                 </FormLabel>
                 <FormControl>
                   <Input
                     className="w-[24.5vw] max-md:w-[82vw] h-[50px] border-[1px] border-[#D0D5DD] placeholder:text-[#98A2B3]"
-                    placeholder="Zip Code"
+                    placeholder="SW1A 1AA"
                     {...field}
                   />
                 </FormControl>
@@ -225,6 +227,9 @@ const CheckoutDIForm = ({ onAddressSubmit }) => {
             )}
           />
         </div>
+
+        {/* Shipping Method Selector */}
+        <ShippingMethodSelector />
       </form>
     </Form>
   );

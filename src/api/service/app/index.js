@@ -38,6 +38,14 @@ export const createOrder = async (orderData) => {
   });
 };
 
+export const createBuiltBoxOrder = async (orderData) => {
+  return await api({
+    method: "post",
+    url: "/api/orders/create-built-box",
+    payload: orderData,
+  });
+};
+
 export const confirmPayment = async (paymentData) => {
   return await api({
     method: "post",

@@ -1,13 +1,45 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { selectBoxData } from "@/data";
 import RadioGroupBtns from "@/components/components/ui/RadioGroupBtns";
 import { Textarea } from "@/components/components/ui/textarea";
 import { Button } from "@/components/components/shared/button";
-// import { Button } from "@/components/components/ui/button";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import {
+  setPersonalizationMessage,
+  setPersonalizationOption,
+  setSelectedBoxData,
+  setSelectedBoxIndex,
+} from "@/redux/slices/built-box-slice";
 
 const SelectYourBox = ({ next }) => {
-  const [selectedIndex, setSelectedIndex] = useState(null);
+  const dispatch = useAppDispatch();
+  const { selectedBoxIndex, personalizationOption, personalizationMessage } =
+    useAppSelector((state) => state.buildBox);
+
+  const handleBoxSelect = (index) => {
+    dispatch(setSelectedBoxIndex(index));
+    dispatch(setSelectedBoxData(selectBoxData[index]));
+  };
+
+  const handlePersonalizationChange = (value) => {
+    dispatch(setPersonalizationOption(value));
+  };
+
+  const handleMessageChange = (event) => {
+    dispatch(setPersonalizationMessage(event.target.value));
+  };
+
+  const handleContinue = () => {
+    // You can add validation here if needed
+    if (selectedBoxIndex === null) {
+      alert("Please select a box");
+      return;
+    }
+    next();
+  };
+
   return (
     <div className="mt-10 mb-20">
       <h1
@@ -23,10 +55,10 @@ const SelectYourBox = ({ next }) => {
       <div className="flex justify-center max-md:flex-col max-md:items-center gap-10 my-16 max-md:my-8">
         {selectBoxData.map((item, index) => (
           <div
-            onClick={() => setSelectedIndex(index)}
+            onClick={() => handleBoxSelect(index)}
             className={`cursor-pointer p-2 rounded-lg transition border-2 ${
-              selectedIndex === index
-                ? "border-[#D0B38B] border-2" // highlighted border color
+              selectedBoxIndex === index
+                ? "border-[#D0B38B] border-2"
                 : "border-transparent"
             }`}
             key={index}
@@ -51,27 +83,33 @@ const SelectYourBox = ({ next }) => {
         <h2 className="font-semibold text-[18px]">
           Do you want to personalize your box?
         </h2>
-        <RadioGroupBtns firstBtnText="Yes" secondBtnText="No" />
+        <RadioGroupBtns
+          firstBtnText="Yes"
+          secondBtnText="No"
+          value={personalizationOption}
+          onChange={handlePersonalizationChange}
+        />
       </div>
 
-      <div className="mt-7 mb-2 flex flex-col justify-center items-center m-auto">
-        <p className="text-[#344054] text-[14px] font-medium mb-2">
-          Enter your message
-        </p>
-        <Textarea
-          className="h-40 w-[40vw] max-md:w-[90vw] resize-none"
-          placeholder="Enter your card message here"
-        />
-        {/* <Button
-          className="cursor-pointer  hover:bg-gradient-to-r hover:from-black hover:via-[#1a1a1a] hover:to-[#333333] hover:animate-gradient-x"
-          onClick={next}
-        >
-          Continue
-        </Button> */}
+      {personalizationOption === "yes" && (
+        <div className="mt-7 mb-2 flex flex-col justify-center items-center m-auto">
+          <p className="text-[#344054] text-[14px] font-medium mb-2">
+            Enter your message
+          </p>
+          <Textarea
+            className="h-40 w-[40vw] max-md:w-[90vw] resize-none"
+            placeholder="Enter your card message here"
+            value={personalizationMessage}
+            onChange={handleMessageChange}
+          />
+        </div>
+      )}
+
+      <div className="flex justify-center mt-5">
         <Button
           variant="primary"
-          className="mt-5 w-[40vw] max-md:w-[90vw] h-[55px] font-medium"
-          onClick={next}
+          className="w-[40vw] max-md:w-[90vw] h-[55px] font-medium"
+          onClick={handleContinue}
         >
           Continue
         </Button>

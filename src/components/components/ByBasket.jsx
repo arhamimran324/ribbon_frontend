@@ -79,7 +79,7 @@ const ByBasket = ({ stock = 12, onClose }) => {
                     {item.title}
                   </p>
                   <p className="flex items-baseline font-semibold text-black">
-                    <span className="text-sm max-md:text-[10px] mr-0.5">$</span>
+                    <span className="text-sm max-md:text-[10px] mr-0.5">£</span>
                     <span className="text-lg max-md:text-[12px] ">
                       {item.price * item.quantity}
                     </span>
@@ -138,7 +138,7 @@ const ByBasket = ({ stock = 12, onClose }) => {
             Subtotal:
           </p>
           <p className="flex items-baseline font-semibold text-black">
-            <span className="text-sm max-md:text-[10px] mr-0.5">$</span>
+            <span className="text-sm max-md:text-[10px] mr-0.5">£</span>
             <span className="text-lg max-md:text-[12px] ">
               {cartTotal?.toFixed(2)}
             </span>

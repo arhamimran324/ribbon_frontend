@@ -177,10 +177,10 @@ const BestSellers = ({ title }) => {
     if (discount && discount > 0) {
       return (
         <div className="flex items-baseline font-semibold text-black">
-          <span className="text-sm mr-0.5">$</span>
+          <span className="text-sm mr-0.5">£</span>
           <span className="text-lg">{formatPrice(discountedPrice)}</span>
           <span className="text-sm line-through text-gray-500 ml-2">
-            ${formatPrice(price)}
+            £{formatPrice(price)}
           </span>
           <span className="text-xs text-red-500 ml-2 bg-red-100 px-1 rounded">
             -{discount}%
@@ -191,7 +191,7 @@ const BestSellers = ({ title }) => {
 
     return (
       <p className="flex items-baseline font-semibold text-black">
-        <span className="text-sm mr-0.5">$</span>
+        <span className="text-sm mr-0.5">£</span>
         <span className="text-lg">{formatPrice(price)}</span>
       </p>
     );

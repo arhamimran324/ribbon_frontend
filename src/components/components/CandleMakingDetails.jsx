@@ -98,7 +98,7 @@ const CandleMakingDetails = () => {
             </div>
             <ProductRating rating={5} reviews={124} />
             <h1 className="text-2xl font-bold text-[#101928] mt-3 ">
-              ${product.price}.00
+              £{product.price}.00
             </h1>
             <hr className="border-[1px] border-t border-[#F0F2F5] w-[full]  max-md:m-auto my-5 max-md:my-5" />
 
@@ -186,7 +186,7 @@ const CandleMakingDetails = () => {
                   {item.date}
                 </p>
                 <p className="flex items-baseline font-semibold text-[13px] text-black mt-2 ">
-                  <span className="text-sm mr-0.5">$</span>
+                  <span className="text-sm mr-0.5">£</span>
                   <span className="text-lg">{item.price}</span>
                   <span className="text-sm ml-0.5">.00</span>
                 </p>

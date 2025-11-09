@@ -6,12 +6,25 @@ import {
 } from "@/components/components/ui/radio-group";
 import { usePathname } from "next/navigation";
 
-const RadioGroupBtns = ({ firstBtnText, secondBtnText }) => {
+const RadioGroupBtns = ({ firstBtnText, secondBtnText, value, onChange }) => {
   const pathname = usePathname();
-  console.log(pathname);
+
+  const handleValueChange = (newValue) => {
+    // Map the radio values to "yes"/"no" format
+    if (newValue === "default") {
+      onChange("yes");
+    } else if (newValue === "comfortable") {
+      onChange("no");
+    }
+  };
+
+  // Map the "yes"/"no" values back to radio values
+  const radioValue = value === "yes" ? "default" : "comfortable";
+
   return (
     <RadioGroup
-      defaultValue="default"
+      value={radioValue}
+      onValueChange={handleValueChange}
       className={`flex ${
         pathname === "/productDetails" && "flex-col"
       } gap-6 mt-4 mb-3`}
@@ -58,4 +71,5 @@ const RadioGroupBtns = ({ firstBtnText, secondBtnText }) => {
     </RadioGroup>
   );
 };
+
 export default RadioGroupBtns;

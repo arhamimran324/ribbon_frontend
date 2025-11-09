@@ -11,7 +11,8 @@ const initialState = {
     address: "",
     city: "",
     zipCode: "",
-    country: "United States",
+    country: "United Kingdom",
+    shippingMethod: "", // Add shipping method
   },
 
   // Payment Information
@@ -107,18 +108,16 @@ const checkoutSlice = createSlice({
     },
     setSubtotal: (state, action) => {
       state.orderSummary.subtotal = action.payload;
-      state.orderSummary.tax = action.payload * 0.1; // 10% tax
+      state.orderSummary.tax = 0; // 0% tax
       state.orderSummary.total =
-        state.orderSummary.subtotal +
-        state.orderSummary.tax -
+        state.orderSummary.subtotal -
         state.orderSummary.discount +
         state.orderSummary.shippingFee;
     },
     setDiscount: (state, action) => {
       state.orderSummary.discount = action.payload;
       state.orderSummary.total =
-        state.orderSummary.subtotal +
-        state.orderSummary.tax -
+        state.orderSummary.subtotal -
         action.payload +
         state.orderSummary.shippingFee;
     },
@@ -128,16 +127,14 @@ const checkoutSlice = createSlice({
     setShippingFee: (state, action) => {
       state.orderSummary.shippingFee = action.payload;
       state.orderSummary.total =
-        state.orderSummary.subtotal +
-        state.orderSummary.tax -
+        state.orderSummary.subtotal -
         state.orderSummary.discount +
         action.payload;
     },
     calculateTotals: (state) => {
-      state.orderSummary.tax = state.orderSummary.subtotal * 0.1;
+      state.orderSummary.tax = 0;
       state.orderSummary.total =
-        state.orderSummary.subtotal +
-        state.orderSummary.tax -
+        state.orderSummary.subtotal -
         state.orderSummary.discount +
         state.orderSummary.shippingFee;
     },
@@ -167,8 +164,25 @@ const checkoutSlice = createSlice({
     initializeCheckout: (state, action) => {
       const { cartTotal, items } = action.payload;
       state.orderSummary.subtotal = cartTotal;
-      state.orderSummary.tax = cartTotal * 0.1;
-      state.orderSummary.total = cartTotal + cartTotal * 0.1;
+      state.orderSummary.tax = 0;
+      state.orderSummary.total = cartTotal + cartTotal;
+    },
+    setShippingMethod: (state, action) => {
+      state.deliveryInfo.shippingMethod = action.payload.method;
+      state.orderSummary.shippingFee = action.payload.cost;
+      state.orderSummary.total =
+        state.orderSummary.subtotal -
+        state.orderSummary.discount +
+        action.payload.cost;
+    },
+
+    // Update setShippingFee to handle free shipping
+    setShippingFee: (state, action) => {
+      state.orderSummary.shippingFee = action.payload;
+      state.orderSummary.total =
+        state.orderSummary.subtotal -
+        state.orderSummary.discount +
+        action.payload;
     },
   },
 });
@@ -197,6 +211,7 @@ export const {
   setLoading,
   resetCheckout,
   initializeCheckout,
+  setShippingMethod,
 } = checkoutSlice.actions;
 
 export default checkoutSlice.reducer;

@@ -689,16 +689,19 @@ export const selectBoxData = [
     image: "/assets/images/chooseCard/selectBox.jpg",
     title: "Clear box",
     text: "Fits 4 Items",
+    limit: 4,
   },
   {
     image: "/assets/images/chooseCard/selectBox.jpg",
     title: "Fosted box",
     text: "Fits 4 Items",
+    limit: 4,
   },
   {
     image: "/assets/images/chooseCard/selectBox.jpg",
     title: "Fosted box",
     text: "Can Fit upto 10 Items",
+    limit: 10,
   },
 ];
 

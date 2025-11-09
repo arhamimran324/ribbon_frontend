@@ -259,25 +259,25 @@ const StripePaymentForm = ({
           <div className="space-y-1 text-sm">
             <div className="flex justify-between">
               <span>Items:</span>
-              <span>${orderSummary.subtotal.toFixed(2)}</span>
+              <span>£{orderSummary.subtotal.toFixed(2)}</span>
             </div>
             <div className="flex justify-between">
               <span>Tax:</span>
-              <span>${orderSummary.tax.toFixed(2)}</span>
+              <span>£{orderSummary.tax.toFixed(2)}</span>
             </div>
             {orderSummary.discount > 0 && (
               <div className="flex justify-between text-green-600">
                 <span>Discount:</span>
-                <span>-${orderSummary.discount.toFixed(2)}</span>
+                <span>-£{orderSummary.discount.toFixed(2)}</span>
               </div>
             )}
             <div className="flex justify-between">
               <span>Shipping:</span>
-              <span>${orderSummary.shippingFee.toFixed(2)}</span>
+              <span>£{orderSummary.shippingFee.toFixed(2)}</span>
             </div>
             <div className="flex justify-between border-t pt-1 font-semibold">
               <span>Total:</span>
-              <span>${finalTotal.toFixed(2)}</span>
+              <span>£{finalTotal.toFixed(2)}</span>
             </div>
           </div>
         </div>
@@ -300,7 +300,7 @@ const StripePaymentForm = ({
       >
         {loading
           ? "Processing Payment..."
-          : `Confirm Payment of $${finalTotal.toFixed(2)}`}
+          : `Confirm Payment of £${finalTotal.toFixed(2)}`}
       </Button>
     </form>
   );
@@ -603,25 +603,25 @@ const CheckoutPIFormContent = () => {
 
         <div className="space-y-2">
           <p className="text-[14px] font-normal text-[#475367] flex justify-between">
-            Subtotal <span>${orderSummary.subtotal.toFixed(2)}</span>
+            Subtotal <span>£{orderSummary.subtotal.toFixed(2)}</span>
           </p>
           <p className="text-[14px] font-normal text-[#475367] flex justify-between">
-            Tax(0%) <span>${orderSummary.tax.toFixed(2)}</span>
+            Tax(0%) <span>£{orderSummary.tax.toFixed(2)}</span>
           </p>
           {orderSummary.discount > 0 && (
             <p className="text-[14px] font-normal text-[#475367] flex justify-between text-green-600">
-              Discount <span>-${orderSummary.discount.toFixed(2)}</span>
+              Discount <span>-£{orderSummary.discount.toFixed(2)}</span>
             </p>
           )}
           <p className="text-[14px] font-normal text-[#475367] flex justify-between">
-            Shipping <span>${orderSummary.shippingFee.toFixed(2)}</span>
+            Shipping <span>£{orderSummary.shippingFee.toFixed(2)}</span>
           </p>
         </div>
 
         <hr className="border-[2px] border-t border-[#F0F2F5] w-[100%] max-md:w-[98%] max-md:m-auto my-5 max-md:my-5" />
 
         <p className="text-[14px] font-normal text-[#475367] flex justify-between font-semibold text-lg">
-          Total <span>${orderSummary.total.toFixed(2)}</span>
+          Total <span>£{orderSummary.total.toFixed(2)}</span>
         </p>
 
         <Button
@@ -631,7 +631,7 @@ const CheckoutPIFormContent = () => {
           disabled={!isPaymentReady}
           style={{ background: !isPaymentReady && "#ccc" }}
         >
-          Pay ${orderSummary.total.toFixed(2)}
+          Pay £{orderSummary.total.toFixed(2)}
         </Button>
 
         {!isPaymentReady && (

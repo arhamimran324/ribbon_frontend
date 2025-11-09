@@ -196,13 +196,13 @@ const ProductDetails = () => {
       return (
         <div className="flex items-baseline gap-2">
           <div className="flex items-baseline font-bold text-[#101928]">
-            <span className="text-sm mr-0.5">$</span>
+            <span className="text-sm mr-0.5">£</span>
             <span className="text-2xl">
               {formatPrice(discountedPrice || 0)}
             </span>
           </div>
           <div className="flex items-baseline text-gray-500">
-            <span className="text-sm line-through mr-0.5">$</span>
+            <span className="text-sm line-through mr-0.5">£</span>
             <span className="text-lg line-through">
               {formatPrice(price || 0)}
             </span>
@@ -216,7 +216,7 @@ const ProductDetails = () => {
 
     return (
       <div className="flex items-baseline font-bold text-[#101928]">
-        <span className="text-sm mr-0.5">$</span>
+        <span className="text-sm mr-0.5">£</span>
         <span className="text-2xl">{formatPrice(price || 0)}</span>
       </div>
     );
@@ -585,14 +585,14 @@ const ProductDetails = () => {
                       {item.discount > 0 ? (
                         <>
                           <div className="flex items-baseline font-semibold text-black">
-                            <span className="text-sm mr-0.5">$</span>
+                            <span className="text-sm mr-0.5">£</span>
                             <span className="text-lg">
                               {formatPrice(item.discountedPrice || 0)}
                             </span>
                           </div>
                           <div className="flex items-baseline text-gray-500">
                             <span className="text-xs line-through mr-0.5">
-                              $
+                              £
                             </span>
                             <span className="text-sm line-through">
                               {formatPrice(item.price || 0)}
@@ -601,7 +601,7 @@ const ProductDetails = () => {
                         </>
                       ) : (
                         <div className="flex items-baseline font-semibold text-black">
-                          <span className="text-sm mr-0.5">$</span>
+                          <span className="text-sm mr-0.5">£</span>
                           <span className="text-lg">
                             {formatPrice(item.price || 0)}
                           </span>
